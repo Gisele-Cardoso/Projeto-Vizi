@@ -30,3 +30,8 @@ span{
 .descricao-preco{
   font-size: 0.9rem;
 }
+
+button{
+  padding: 10px;
+  align-items: center;
+}
