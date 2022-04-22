@@ -2,10 +2,10 @@ import './Produtos.css';
 import { useEffect, useState } from "react";
 import api from "../service/api";
 
-export default function Home() {
+export default function Produtos() {
   const [state, setState] = useState({ 'products': [] });
-
-  useEffect(() => {
+  
+  useEffect(() => { 
     api
       .get("/products")
       .then((response) => {
@@ -13,25 +13,31 @@ export default function Home() {
 
       }).catch((err) => {
         console.error("ops! ocorreu um erro" + err);
-      },[]);
-  })
+      });
+  },[])
   return (
     <div class="Produtos">
       <h1>Produtos Vizi:</h1>
-      <button>Destrancar</button>
+      <button onClick={() => {api
+      .post("/transactions")
+      .then((response) => {
+        api
+        .post("/payments?transactionId=l1eddsxevvk5o6acysd&amount=65.55")
+        .then((response) => {
+          alert("Compra realizada")
+        }).catch((err) => {
+          console.error("ops! ocorreu um erro" + err);
+        });
+      }).catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });}}>Destrancar</button>
       {state.products.map((produto) => 
-      <div class="produto-nome" key="{produto.id}">
-
-        
+      <div class="produto-nome" key={produto.id}>
         <div class="produto-imagem">
           <img alt="descrição" width="50" height="80" src={produto.thumb}></img>
         </div>
           <span class="descricao-produto">{produto.name}</span>
           <span class="descricao-preco">Preço: {produto.price}</span></div>)}
-
-
       </div>
-
-      
   );
 }

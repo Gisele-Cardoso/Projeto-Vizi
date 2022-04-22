@@ -1,4 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
+import "./Home.css";
 
 const Home = () => {
   return (
@@ -11,7 +12,7 @@ const Home = () => {
           <li>
             <Link to="/pagamento">Pagamento</Link>
           </li>
-          <li>
+          <li class="pag">
             <Link to="/detalhepagamento">Transação</Link>
           </li>
         </ul>

@@ -1,0 +1,17 @@
+nav{
+    display: flex;
+}
+
+ul{
+    display: flex;
+    gap: 30px;
+}
+
+li{
+    color: #000;
+    font-weight: bold;
+}
+
+.pag{
+    display: none;
+}

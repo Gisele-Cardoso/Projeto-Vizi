@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import api from "../service/api";
+import { useSearchParams } from "react-router-dom";
 
 export default function DatalhePagamento() {
   const [state, setState] = useState({'products': [], 'id': "", "openFridge":"","closeFridge":""});
   const [payments, setPayments] = useState({'paymentDate': "", 'id': "", "transactionId":"","amount":"", "status": ""});
-
+  const [searchParams] = useSearchParams();
   useEffect(() => {
     api
-      .get("/transactions/l1eddsxevvk5o6acysd")
+      .get("/transactions/"+searchParams.get("transactionId"))
       .then((response) => {
         setState({ 'products': response.data.products, 'idTrans': response.data.id, "openFridge": response.data.openFridge,"closeFridge": response.data.closeFridge})
       }).catch((err) => {
@@ -15,7 +16,7 @@ export default function DatalhePagamento() {
       });
 
     api
-      .get("/payments/l1edk4tmlybbn4ffne9")
+      .get("/payments/"+searchParams.get("id"))
       .then((response) => {
         setPayments({ 'paymentDate': response.data.paymentDate, 'id': response.data.id, "transactionId": response.data.transactionId,"amount": response.data.amount, "status": response.data.status})
       }).catch((err) => {
@@ -24,7 +25,7 @@ export default function DatalhePagamento() {
   },[])
   return (
     <div class="Produtos">
-      <h1>Produtos Vizi:</h1>
+      <h1>Detalhe do pagamento:</h1>
       <div class="produto-nome" key="{state?.id}">
           <span class="descricao-produto">Data de pagamento: {payments.paymentDate}</span>
           <span class="descricao-produto">Valor pago: {payments.amount}</span>
